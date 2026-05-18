@@ -35,7 +35,6 @@ public class TrashCan : MonoBehaviour
     {
         if(collision.GetComponent<Trash>()!=null)
         {
-            Debug.Log("Collided...");
             Trash trash = collision.GetComponent<Trash>();
             trash.TakeDamage(damageAmount);
         }

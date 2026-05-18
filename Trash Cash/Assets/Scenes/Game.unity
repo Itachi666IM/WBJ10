@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648e4dfbc43636741be3252e22b39071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashCan
-  damageAmount: 50
+  damageAmount: 10
   cashText: {fileID: 1342693188}
   cash: 0
 --- !u!1 &418401850
