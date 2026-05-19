@@ -8,7 +8,7 @@ public class TrashCan : MonoBehaviour
     private float zPos = 0f;
 
     private const string CASH = "Cash";
-    [SerializeField] private int damageAmount = 50;
+    public float damageAmount = 50;
     [SerializeField] private TMP_Text cashText;
     public static TrashCan Instance { get; private set; }
     public float cash;
@@ -21,6 +21,7 @@ public class TrashCan : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        damageAmount = PlayerPrefs.GetFloat(GameManager.TRASH_DAMAGE, 10f);
     }
 
     private void Update()
