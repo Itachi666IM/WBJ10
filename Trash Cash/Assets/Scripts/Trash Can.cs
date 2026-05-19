@@ -25,10 +25,13 @@ public class TrashCan : MonoBehaviour
 
     private void Update()
     {
-        mousePosition = Mouse.current.position.ReadValue();
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        worldPosition.z = zPos;
-        transform.position = worldPosition;
+        if(!GameManager.Instance.isPaused)
+        {
+            mousePosition = Mouse.current.position.ReadValue();
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            worldPosition.z = zPos;
+            transform.position = worldPosition;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

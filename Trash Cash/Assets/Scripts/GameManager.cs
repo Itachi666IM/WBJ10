@@ -20,8 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button restartGameButton;
     [SerializeField] private Button quitGameButton;
 
+    public static GameManager Instance { get; private set; }
+
     private void Awake()
     {
+        Instance = this;
         restartButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
