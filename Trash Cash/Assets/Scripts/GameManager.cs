@@ -20,11 +20,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button restartGameButton;
     [SerializeField] private Button quitGameButton;
 
+    [HideInInspector] public const string TRASH_DAMAGE = "Trash_Damage";
+    [HideInInspector] public const string TRASH_SPAWNRATE = "Trash_Spawnrate";
+    [HideInInspector] public const string CASH_FOR_TRASH = "Cash_For_Trash";
+    [HideInInspector] public const string TRASH_HEALTH = "Trash_Health";
+    [HideInInspector] public const string ENERGY_DEPLETION = "Energy_Depletion";
+    [HideInInspector] public const string TRASH_FADE_DELAY = "Trash_Fade_Delay";
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+
+        PlayerPrefs.SetFloat(TRASH_DAMAGE, TrashCan.Instance.damageAmount);
+        PlayerPrefs.SetFloat(TRASH_SPAWNRATE, 1.5f);
+        PlayerPrefs.SetFloat(CASH_FOR_TRASH, 0.5f);
+        PlayerPrefs.SetFloat(TRASH_HEALTH, 100f);
+        PlayerPrefs.SetFloat(ENERGY_DEPLETION, 10f);
+        PlayerPrefs.SetFloat(TRASH_FADE_DELAY, 4f);
+
         restartButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -55,6 +70,11 @@ public class GameManager : MonoBehaviour
         });
     }
 
+    private void Start()
+    {
+        energyDepreciation = PlayerPrefs.GetFloat(ENERGY_DEPLETION);
+    }
+
     private void Update()
     {
         if(!isPaused)
@@ -66,6 +86,7 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             timeUpScreen.SetActive(true);
+            //ResetCash();
         }
         if(Keyboard.current.escapeKey.wasPressedThisFrame && !isPaused)
         {
@@ -82,5 +103,11 @@ public class GameManager : MonoBehaviour
     public void UpdateEnergyValue()
     {  
         energySlider.value = energy;
+    }
+
+    private void ResetCash()
+    {
+        TrashCan.Instance.cash = 0;
+        TrashCan.Instance.UpdateCash();
     }
 }

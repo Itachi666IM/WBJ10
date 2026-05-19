@@ -10,6 +10,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
 
+    private void Start()
+    {
+        timeBetweenSpawns = PlayerPrefs.GetFloat(GameManager.TRASH_SPAWNRATE);
+    }
+
     private void Update()
     {
         if(!GameManager.Instance.isPaused)

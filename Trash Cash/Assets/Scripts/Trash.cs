@@ -6,7 +6,7 @@ public class Trash : MonoBehaviour
     private Animator myAnim;
     private float destructionTime = 1.5f;
     private float fadeOutTime = 4f;
-    [SerializeField] private int health = 100;
+    [SerializeField] private float health = 100;
     [SerializeField] private float cashForTrash = 0.5f;
     [SerializeField] private float invulnerableTime = 0.3f;
 
@@ -18,6 +18,9 @@ public class Trash : MonoBehaviour
 
     private void Start()
     {
+        cashForTrash = PlayerPrefs.GetFloat(GameManager.CASH_FOR_TRASH);
+        health = PlayerPrefs.GetFloat(GameManager.TRASH_HEALTH);
+        fadeOutTime = PlayerPrefs.GetFloat(GameManager.TRASH_FADE_DELAY);
         Invoke(nameof(FadeOutTrash), fadeOutTime);
     }
 
@@ -27,7 +30,7 @@ public class Trash : MonoBehaviour
         myAnim.SetTrigger("isFading");
         Destroy(gameObject, destructionTime);
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         myAnim.SetBool("isTakingDamage", true);
         health -= damage;
