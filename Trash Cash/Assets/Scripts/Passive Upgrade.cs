@@ -13,16 +13,7 @@ public class PassiveUpgrade : MonoBehaviour
         myButton = GetComponent<Button>();
         myImage = GetComponent<Image>();
         int passiveUpgradeInfo = PlayerPrefs.GetInt(keyForPlayerPrefs);
-        if(TrashCan.Instance.cash >= 20f)
-        {
-            canBuy = true;
-        }
-        else
-        {
-            canBuy= false;
-            myImage.color = Color.gray;
-            myButton.interactable = false;
-        }
+        CheckForCash();
         if(passiveUpgradeInfo == 1 )
         {
             Destroy(gameObject);
@@ -44,11 +35,26 @@ public class PassiveUpgrade : MonoBehaviour
 
     }
 
+    private void CheckForCash()
+    {
+        if (TrashCan.Instance.cash >= 20f)
+        {
+            canBuy = true;
+        }
+        else
+        {
+            canBuy = false;
+            myImage.color = Color.gray;
+            myButton.interactable = false;
+        }
+    }
+
     private void Update()
     {
         if(PlayerPrefs.GetInt(keyForPlayerPrefs)==1)
         {
             Destroy(gameObject);
         }
+        CheckForCash();
     }
 }

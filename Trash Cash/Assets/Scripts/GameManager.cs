@@ -82,6 +82,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(TrashCan.Instance.cash >= 1000)
+        {
+            SceneManager.LoadScene("Win");
+        }
         if(!isPaused)
         {
             energy -= Time.deltaTime * energyDepreciation;
