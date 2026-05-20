@@ -2040,8 +2040,9 @@ MonoBehaviour:
   - The amount of Cash you have is represented on top right
   - The banana represents the energy you have
   - The energy bar depletes with time, you don't have all day to pick up trash!
-  - Collect trash in the trash can... that's it!
-  - Here is some trash...Now go!
+  - Collect trash in the trash can... hover your mouse over the trash and that's
+    it!
+  - The trash looks like this...Now go!
   skipButton: {fileID: 236348914}
   nextButton: {fileID: 118510716}
   playButton: {fileID: 498667499}

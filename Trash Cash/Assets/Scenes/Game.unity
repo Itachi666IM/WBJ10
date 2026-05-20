@@ -3344,6 +3344,13 @@ MonoBehaviour:
   maxX: 8.5
   minY: -4.5
   maxY: 4.5
+  timeBetweenTreasureSpawns: 5
+  treasures:
+  - {fileID: 1989002734026876694, guid: e4053926d6a35214b995b441a43f4a6e, type: 3}
+  - {fileID: 1989002734026876694, guid: e4053926d6a35214b995b441a43f4a6e, type: 3}
+  - {fileID: 1989002734026876694, guid: e4053926d6a35214b995b441a43f4a6e, type: 3}
+  - {fileID: 1989002734026876694, guid: e4053926d6a35214b995b441a43f4a6e, type: 3}
+  - {fileID: 1922698876008481418, guid: 896da8e86c598a243b0dfe904f71b061, type: 3}
 --- !u!4 &2116317752
 Transform:
   m_ObjectHideFlags: 0

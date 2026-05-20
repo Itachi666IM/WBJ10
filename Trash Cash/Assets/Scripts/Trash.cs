@@ -37,9 +37,7 @@ public class Trash : MonoBehaviour
         DisableAndEnableColliderWhenHit();
         if(health < 0)
         {
-            TrashCan.Instance.cash += cashForTrash;
-            TrashCan.Instance.UpdateCash();
-            Destroy(gameObject);
+            DestroyObjectAndGiveCash();
         }
     }
 
@@ -53,6 +51,13 @@ public class Trash : MonoBehaviour
     {
         myAnim.SetBool("isTakingDamage", false);
         myCollider.enabled = true;
+    }
+
+    public void DestroyObjectAndGiveCash()
+    {
+        TrashCan.Instance.cash += cashForTrash;
+        TrashCan.Instance.UpdateCash();
+        Destroy(gameObject);
     }
 }
 

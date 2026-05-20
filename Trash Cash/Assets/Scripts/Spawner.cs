@@ -10,6 +10,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
 
+    private float treasureSpawnTime;
+    [SerializeField] private float timeBetweenTreasureSpawns;
+    [SerializeField] GameObject[] treasures;
+
     private void Start()
     {
         timeBetweenSpawns = PlayerPrefs.GetFloat(GameManager.TRASH_SPAWNRATE);
@@ -17,12 +21,21 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if(!GameManager.Instance.isPaused)
+        if (!GameManager.Instance.isPaused)
         {
-            if(Time.time > nextSpawnTime)
+            if (Time.time > nextSpawnTime)
             {
                 SpawnTrashAtRandomPos();
                 nextSpawnTime = Time.time + timeBetweenSpawns;
+            }
+
+            if (PlayerPrefs.GetInt(GameManager.PASSIVE_UPGRADE_3)==1)
+            {
+                if (Time.time > treasureSpawnTime)
+                {
+                    SpawnTreasureAtRandomPos();
+                    treasureSpawnTime = Time.time + timeBetweenTreasureSpawns;
+                }
             }
         }
     }
@@ -30,6 +43,13 @@ public class Spawner : MonoBehaviour
     private void SpawnTrashAtRandomPos()
     {
         Vector2 spawnPos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-        Instantiate(trashPrefab,spawnPos,Quaternion.identity);
+        Instantiate(trashPrefab, spawnPos, Quaternion.identity);
+    }
+
+    private void SpawnTreasureAtRandomPos()
+    {
+        Vector2 spawnPos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+        GameObject randomTreasure = treasures[Random.Range(0, treasures.Length - 1)];
+        Instantiate(randomTreasure, spawnPos, Quaternion.identity);
     }
 }
