@@ -24,6 +24,7 @@ public class PassiveUpgrade : MonoBehaviour
             {
                 myButton.onClick.AddListener(() =>
                 {
+                    SFX.Instance.PlayCash();
                     TrashCan.Instance.cash -= 20;
                     TrashCan.Instance.UpdateCash();
                     shopManager.UpdateCashText();

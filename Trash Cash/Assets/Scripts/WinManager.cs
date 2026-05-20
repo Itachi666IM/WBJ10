@@ -11,12 +11,19 @@ public class WinManager : MonoBehaviour
     {
         replayButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             MenuManager.Instance.isNewGame = true;
             SceneManager.LoadScene("Menu");
         });
         exitButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             Application.Quit();
         });
+    }
+
+    private void Start()
+    {
+        SFX.Instance.PlayApplause();
     }
 }

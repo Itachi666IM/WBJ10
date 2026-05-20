@@ -22,29 +22,34 @@ public class MenuManager : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             isNewGame = false;
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene("Game");
         });
 
         newGameButton.onClick.AddListener(() =>
         {
             isNewGame = true;
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
 
         optionsButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             titleScreen.SetActive(false);
             optionsPanel.SetActive(true);
         });
 
         backButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             optionsPanel.SetActive(false);
             titleScreen.SetActive(true);
         });
 
         quitButton.onClick.AddListener(() => 
         {
+            SFX.Instance.PlayClick();
             Application.Quit();
         });
     }

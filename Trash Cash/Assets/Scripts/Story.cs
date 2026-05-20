@@ -20,17 +20,20 @@ public class Story : MonoBehaviour
         currentString = textStrings[index];
         nextButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             nextButton.gameObject.SetActive(false);
             NextSentence();
         });
 
         skipButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene("Tutorial");
         });
 
         playButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene("Tutorial");
         });
     }
@@ -42,6 +45,7 @@ public class Story : MonoBehaviour
 
     private void NextSentence()
     {
+        SFX.Instance.PlayTyping();
         displayText.text = "";
         if (index < textStrings.Length - 1)
         {
