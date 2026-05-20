@@ -22,6 +22,7 @@ public class Upgrade : MonoBehaviour
         {
             if(canBuy)
             {
+                SFX.Instance.PlayCash();
                 TrashCan.Instance.cash -= 3;
                 TrashCan.Instance.UpdateCash();
                 DefineVariableToBeChanged();

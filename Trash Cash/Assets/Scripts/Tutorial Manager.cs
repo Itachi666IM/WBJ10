@@ -24,10 +24,12 @@ public class TutorialManager : MonoBehaviour
 
         skipButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayPopup();
             SceneManager.LoadScene("Game");
         });
         nextButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayPopup();
             if(index+1<gameObjectsToEnable.Length)
             {
                 index++;
@@ -46,6 +48,7 @@ public class TutorialManager : MonoBehaviour
         });
         playButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayPopup();
             SceneManager.LoadScene("Game");
         });
     }

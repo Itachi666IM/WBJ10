@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     private float timeBetweenTrashRemoval = 5f;
     private float nextRemovalTime;
     public static GameManager Instance { get; private set; }
+    private bool once = false;
 
     private void Awake()
     {
@@ -47,30 +48,36 @@ public class GameManager : MonoBehaviour
 
         restartButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         });
 
         shopButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene("Shop");
         });
 
         exitButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             Application.Quit();
         });
 
         resumeButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             isPaused = false;
             pauseMenu.SetActive(false);
         });
         restartGameButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         });
         quitGameButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             Application.Quit();
         });
     }
@@ -91,8 +98,13 @@ public class GameManager : MonoBehaviour
             energy -= Time.deltaTime * energyDepreciation;
             UpdateEnergyValue();
         }
-        if(energy<=0)
+        if(energy == 20)
         {
+            SFX.Instance.PlayEnergyLow();
+        }
+        if(energy<=0 &&!once)
+        {
+            once = true;
             isPaused = true;
             timeUpScreen.SetActive(true);
             if(PlayerPrefs.GetInt(PASSIVE_UPGRADE_1)==1)
@@ -145,6 +157,7 @@ public class GameManager : MonoBehaviour
         Trash[] leftoverTrash = FindObjectsByType<Trash>(FindObjectsSortMode.None);
         if(leftoverTrash!=null)
         {
+            SFX.Instance.PlayBroom();
             foreach(Trash trash in leftoverTrash)
             {
                 trash.DestroyObjectAndGiveCash();

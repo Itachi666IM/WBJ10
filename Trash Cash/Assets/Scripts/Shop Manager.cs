@@ -13,11 +13,13 @@ public class ShopManager : MonoBehaviour
         UpdateCashText();
         playButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             SceneManager.LoadScene("Game");
         });
 
         exitButton.onClick.AddListener(() =>
         {
+            SFX.Instance.PlayClick();
             Application.Quit();
         });
     }

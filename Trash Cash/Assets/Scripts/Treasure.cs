@@ -15,6 +15,7 @@ public class Treasure : MonoBehaviour
     {
         TrashCan.Instance.cash += treasureValue;
         TrashCan.Instance.UpdateCash();
+        SFX.Instance.PlayTreasure();
         Destroy(gameObject);
     }
 }

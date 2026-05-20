@@ -57,6 +57,7 @@ public class Trash : MonoBehaviour
     {
         TrashCan.Instance.cash += cashForTrash;
         TrashCan.Instance.UpdateCash();
+        SFX.Instance.PlayTrashPickup();
         Destroy(gameObject);
     }
 }
