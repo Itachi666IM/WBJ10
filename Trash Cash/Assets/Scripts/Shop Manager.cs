@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TMP_Text cashText;
 
     private void Awake()
-    {
+    { 
         UpdateCashText();
         playButton.onClick.AddListener(() =>
         {
@@ -24,6 +24,6 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateCashText()
     {
-        cashText.text = TrashCan.Instance.cash.ToString();
+        cashText.text = "Cash = " + TrashCan.Instance.cash.ToString();
     }
 }

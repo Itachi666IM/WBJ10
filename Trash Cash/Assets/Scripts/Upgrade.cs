@@ -4,8 +4,9 @@ using UnityEngine.UI;
 public class Upgrade : MonoBehaviour
 {
     private Button myButton;
-    private SpriteRenderer myRenderer;
+    private Image myImage;
     private bool canBuy = false;
+    private bool hasReachedThreshold = false;
     [SerializeField] private float thresholdValue;
     [SerializeField] private float amountToBeChanged;
     [SerializeField] private string keyForPlayerPrefs;
@@ -14,6 +15,32 @@ public class Upgrade : MonoBehaviour
     private void Awake()
     {
         myButton = GetComponent<Button>();
+        myImage = GetComponent<Image>();
+        CheckForCash();
+        CheckForThresholdBeforeShowingUpgrade();
+        myButton.onClick.AddListener(() =>
+        {
+            if(canBuy)
+            {
+                TrashCan.Instance.cash -= 3;
+                TrashCan.Instance.UpdateCash();
+                DefineVariableToBeChanged();
+                shopManager.UpdateCashText();
+            }
+        });
+    }
+
+    private void Update()
+    {
+        CheckForCash();
+        if(hasReachedThreshold)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void CheckForCash()
+    {
         if (TrashCan.Instance.cash >= 3)
         {
             canBuy = true;
@@ -21,20 +48,10 @@ public class Upgrade : MonoBehaviour
         }
         else
         {
-            canBuy= false;
-            myRenderer.color = Color.red;
+            canBuy = false;
+            myImage.color = Color.gray;
             myButton.interactable = false;
         }
-
-        myButton.onClick.AddListener(() =>
-        {
-            if(canBuy)
-            {
-                TrashCan.Instance.cash -= 3;
-                DefineVariableToBeChanged();
-                shopManager.UpdateCashText();
-            }
-        });
     }
 
     private void DefineVariableToBeChanged()
@@ -45,16 +62,27 @@ public class Upgrade : MonoBehaviour
         {
             if(amountRetrieved <= thresholdValue)
             {
-                amountToBeChanged = thresholdValue;
+                hasReachedThreshold = true;
+                amountRetrieved = thresholdValue;
             }
         }
         else
         {
             if(amountRetrieved >= thresholdValue)
             {
+                hasReachedThreshold = true;
                 amountRetrieved = thresholdValue;
             }
         }
         PlayerPrefs.SetFloat(keyForPlayerPrefs, amountRetrieved);
+    }
+
+    private void CheckForThresholdBeforeShowingUpgrade()
+    {
+        float amountRetrieved = PlayerPrefs.GetFloat(keyForPlayerPrefs);
+        if(amountRetrieved == thresholdValue)
+        {
+            gameObject.SetActive(false);  
+        }
     }
 }

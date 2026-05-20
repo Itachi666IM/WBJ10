@@ -47,6 +47,9 @@ public class TrashCan : MonoBehaviour
     public void UpdateCash()
     {
         PlayerPrefs.SetFloat(CASH, cash);
-        cashText.text = "Cash = " + cash.ToString();
+        if (cashText != null)
+        {
+            cashText.text = "Cash = " + cash.ToString();
+        }
     }
 }

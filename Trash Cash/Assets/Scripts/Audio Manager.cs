@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
         ManageSingleton();
         myAudio = GetComponent<AudioSource>();
         myAudio.volume = PlayerPrefs.GetFloat(MUSIC_VOLUME,0.3f);
+        volumeSlider.value = myAudio.volume;
     }
 
     public void SetMusicVolume()

@@ -5,16 +5,29 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private Button playButton;
+    [SerializeField] private Button newGameButton;
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button backButton;
 
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject titleScreen;
+
+    public static MenuManager Instance { get; private set;  }
+
+    public bool isNewGame = false;
     private void Awake()
     {
+        Instance = this;
         playButton.onClick.AddListener(() =>
         {
+            isNewGame = false;
+            SceneManager.LoadScene("Game");
+        });
+
+        newGameButton.onClick.AddListener(() =>
+        {
+            isNewGame = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
 
