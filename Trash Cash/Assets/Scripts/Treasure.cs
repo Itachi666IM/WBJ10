@@ -14,6 +14,7 @@ public class Treasure : MonoBehaviour
     public void AddCash()
     {
         TrashCan.Instance.cash += treasureValue;
+        TrashCan.Instance.UpdateCash();
         Destroy(gameObject);
     }
 }
