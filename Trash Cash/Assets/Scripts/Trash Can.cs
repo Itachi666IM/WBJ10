@@ -42,6 +42,12 @@ public class TrashCan : MonoBehaviour
             Trash trash = collision.GetComponent<Trash>();
             trash.TakeDamage(damageAmount);
         }
+
+        if(collision.GetComponent<Treasure>()!=null)
+        {
+            Treasure treasure = collision.GetComponent<Treasure>();
+            treasure.AddCash();
+        }
     }
 
     public void UpdateCash()

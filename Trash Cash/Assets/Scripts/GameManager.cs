@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public const string ENERGY_DEPLETION = "Energy_Depletion";
     [HideInInspector] public const string TRASH_FADE_DELAY = "Trash_Fade_Delay";
 
+    [HideInInspector] public const string PASSIVE_UPGRADE_1 = "PA1";
+    [HideInInspector] public const string PASSIVE_UPGRADE_2 = "PA2";
+    [HideInInspector] public const string PASSIVE_UPGRADE_3 = "PA3";
+    private float timeBetweenTrashRemoval = 5f;
+    private float nextRemovalTime;
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -86,6 +91,19 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             timeUpScreen.SetActive(true);
+            if(PlayerPrefs.GetInt(PASSIVE_UPGRADE_1)==1)
+            {
+                PA1();
+            }
+        }
+
+        if(PlayerPrefs.GetInt(PASSIVE_UPGRADE_2)==1)
+        {
+            if(Time.time > nextRemovalTime)
+            {
+                PA2();
+                nextRemovalTime = Time.time + timeBetweenTrashRemoval;
+            }
         }
         if(Keyboard.current.escapeKey.wasPressedThisFrame && !isPaused)
         {
@@ -113,5 +131,37 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat(TRASH_HEALTH, 100f);
         PlayerPrefs.SetFloat(ENERGY_DEPLETION, 10f);
         PlayerPrefs.SetFloat(TRASH_FADE_DELAY, 4f);
+        PlayerPrefs.SetInt(PASSIVE_UPGRADE_1, 0);
+        PlayerPrefs.SetInt(PASSIVE_UPGRADE_2, 0);
+        PlayerPrefs.SetInt(PASSIVE_UPGRADE_3, 0);
+    }
+
+    private void PA1()
+    {
+        Trash[] leftoverTrash = FindObjectsByType<Trash>(FindObjectsSortMode.None);
+        if(leftoverTrash!=null)
+        {
+            foreach(Trash trash in leftoverTrash)
+            {
+                trash.DestroyObjectAndGiveCash();
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void PA2()
+    {
+        Trash randomTrash = FindAnyObjectByType<Trash>();
+        if(randomTrash != null)
+        {
+            randomTrash.DestroyObjectAndGiveCash();
+        }
+        else
+        {
+            return;
+        }
     }
 }

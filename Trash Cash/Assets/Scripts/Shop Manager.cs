@@ -24,6 +24,6 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateCashText()
     {
-        cashText.text = "Cash = " + TrashCan.Instance.cash.ToString();
+        cashText.text = TrashCan.Instance.cash.ToString();
     }
 }
