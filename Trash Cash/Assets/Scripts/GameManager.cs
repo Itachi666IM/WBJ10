@@ -33,12 +33,12 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
 
-        PlayerPrefs.SetFloat(TRASH_DAMAGE, TrashCan.Instance.damageAmount);
-        PlayerPrefs.SetFloat(TRASH_SPAWNRATE, 1.5f);
-        PlayerPrefs.SetFloat(CASH_FOR_TRASH, 0.5f);
-        PlayerPrefs.SetFloat(TRASH_HEALTH, 100f);
-        PlayerPrefs.SetFloat(ENERGY_DEPLETION, 10f);
-        PlayerPrefs.SetFloat(TRASH_FADE_DELAY, 4f);
+        if(MenuManager.Instance.isNewGame)
+        {
+            ResetAllValues();
+            TrashCan.Instance.UpdateCash();
+            MenuManager.Instance.isNewGame = false;
+        }
 
         restartButton.onClick.AddListener(() =>
         {
@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
         {
             isPaused = true;
             timeUpScreen.SetActive(true);
-            //ResetCash();
         }
         if(Keyboard.current.escapeKey.wasPressedThisFrame && !isPaused)
         {
@@ -105,9 +104,14 @@ public class GameManager : MonoBehaviour
         energySlider.value = energy;
     }
 
-    private void ResetCash()
+    public void ResetAllValues()
     {
         TrashCan.Instance.cash = 0;
-        TrashCan.Instance.UpdateCash();
+        PlayerPrefs.SetFloat(TRASH_DAMAGE, 10);
+        PlayerPrefs.SetFloat(TRASH_SPAWNRATE, 1.5f);
+        PlayerPrefs.SetFloat(CASH_FOR_TRASH, 0.5f);
+        PlayerPrefs.SetFloat(TRASH_HEALTH, 100f);
+        PlayerPrefs.SetFloat(ENERGY_DEPLETION, 10f);
+        PlayerPrefs.SetFloat(TRASH_FADE_DELAY, 4f);
     }
 }
