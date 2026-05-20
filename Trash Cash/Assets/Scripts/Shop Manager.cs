@@ -10,6 +10,10 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     { 
+        if(MenuManager.Instance.isNewGame)
+        {
+            MenuManager.Instance.isNewGame = false;
+        }
         UpdateCashText();
         playButton.onClick.AddListener(() =>
         {

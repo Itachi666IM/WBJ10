@@ -15,13 +15,18 @@ public class TrashCan : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        cash = PlayerPrefs.GetFloat(CASH,0f);
-        cashText.text = "Cash = " + cash.ToString();
+        if(MenuManager.Instance.isNewGame)
+        {
+            cash = 0;
+            UpdateCash();
+        }
     }
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        cash = PlayerPrefs.GetFloat(CASH,0f);
+        cashText.text = "Cash = " + cash.ToString();
         damageAmount = PlayerPrefs.GetFloat(GameManager.TRASH_DAMAGE, 10f);
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
